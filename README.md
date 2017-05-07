@@ -29,4 +29,4 @@ batteryPercentage({ verbose: true }).then(percentage => {
 - [battery-level](https://github.com/gillstrom/battery-level) - Get current battery level
 
 ## License
-MIT © [Andrea Amorosi](https://www.andreamorosi.me)
+MIT © [Andrea Amorosi](https://dreamorosi.com)
