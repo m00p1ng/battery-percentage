@@ -6,7 +6,11 @@ Works on macOS only.
 
 ## Install
 ```
-$ npm install --global battery-percentage
+$ npm install battery-percentage --save
+
+or
+
+$ yarn add battery-percentage
 ```
 
 ## Usage
