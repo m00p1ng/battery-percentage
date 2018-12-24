@@ -1,4 +1,4 @@
-# battery-percentage
+# MacOS Battery Level
 
 > Get current MacOS battery level
 
@@ -6,31 +6,27 @@ Works on macOS only.
 
 ## Install
 ```
-$ npm install battery-percentage --save
+$ npm install macos-battery-level --save
 
 or
 
-$ yarn add battery-percentage
+$ yarn add macos-battery-level
 ```
 
 ## Usage
 ```js
-const batteryPercentage = require('battery-percentage')
+const batteryLevel = require('macos-battery-level')
 
-batteryPercentage().then(percentage => {
+// fetch interval = 1s (1000ms)
+batteryLevel({ interval: 1000 }).subscribe(percentage => {
   console.log(percentage)
 })
-// 36%
-
-batteryPercentage({ verbose: true }).then(percentage => {
-  console.log(percentage)
-})
-// 36%; charging; 3:36 remaining
+// { 
+//   percentage: '82',
+//   status: 'charging',
+//   estimate: '1:13 remaining' 
+// }
 ```
 
-## Related
-- [battery-percentage-cli](https://github.com/dreamorosi/battery-percentage-cli) -  CLI for this module
-- [battery-level](https://github.com/gillstrom/battery-level) - Get current battery level
-
 ## License
-MIT © [Andrea Amorosi](https://dreamorosi.com)
+MIT © Mongkonchai Priyachiwa
