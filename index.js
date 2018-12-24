@@ -27,7 +27,7 @@ const battery = async () => {
   }
 }
 
-module.exports = (intervalCheck = 1000) => {
+module.exports = (option = { interval: 1000 }) => {
   // Check if user is using MacOS
   if (process.platform === 'darwin') {
     return new Observable(observer => {
@@ -37,13 +37,11 @@ module.exports = (intervalCheck = 1000) => {
         } catch (error) {
           observer.error(error)
         }
-      }, intervalCheck)
+      }, option.interval)
 
       return () => clearInterval(timer)
     })
   } else {
-    return Observable.throw(
-      new Error('Only MacOS systems are supported, for other platforms check gillstrom/battery-level.')
-    )
+    return Observable.throw(new Error('Only MacOS systems are supported.'))
   }
 }
