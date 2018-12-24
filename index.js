@@ -1,4 +1,6 @@
 const execa = require('execa')
+const { Observable } = require('rxjs/Observable')
+require('rxjs/add/observable/throw')
 
 // Remove %, check if isNaN
 const getPercentage = (string) => {
@@ -10,23 +12,38 @@ const getPercentage = (string) => {
   }
 }
 
-// Execute command and return percentage, if --verbose return full stdout
-const battery = (flags) => execa.shell('pmset -g batt | egrep "([0-9]+%).*" -o').then(result => {
-  let stdout = result.stdout
-  if (flags.verbose) {
-    stdout = stdout.substring(0, stdout.length - 14)
-    return stdout
-  } else {
-    stdout = stdout.split('; ')
-    return `${getPercentage(stdout[0])}%`
-  }
-})
+const battery = async () => {
+  let { stdout } = await execa.shell('pmset -g batt | egrep "([0-9]+%).*" -o')
+  stdout = stdout.substring(0, stdout.length - 14).split('; ')
 
-module.exports = (flags = {}) => {
+  try {
+    return {
+      percentage: getPercentage(stdout[0]),
+      status: stdout[1],
+      estimate: stdout[2],
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
+module.exports = (intervalCheck = 1000) => {
   // Check if user is using MacOS
   if (process.platform === 'darwin') {
-    return Promise.resolve(battery(flags))
+    return new Observable(observer => {
+      const timer = setInterval(async () => {
+        try {
+          observer.next(await battery())
+        } catch (error) {
+          observer.error(error)
+        }
+      }, intervalCheck)
+
+      return () => clearInterval(timer)
+    })
   } else {
-    return Promise.resolve('Only MacOS systems are supported, for other platforms check gillstrom/battery-level.')
+    return Observable.throw(
+      new Error('Only MacOS systems are supported, for other platforms check gillstrom/battery-level.')
+    )
   }
 }

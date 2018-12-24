@@ -22,6 +22,8 @@
   "author": "Andrea Amorosi",
   "license": "MIT",
   "dependencies": {
-    "execa": "^0.6.0"
+    "execa": "^0.6.0",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3"
   }
 }
