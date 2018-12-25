@@ -15,10 +15,10 @@ $ yarn add macos-battery-level
 
 ## Usage
 ```js
-const batteryLevel = require('macos-battery-level')
+const BatteryLevel = require('macos-battery-level')
 
 // fetch interval = 1s (1000ms)
-batteryLevel({ interval: 1000 }).subscribe(percentage => {
+BatteryLevel({ interval: 1000 }).subscribe(percentage => {
   console.log(percentage)
 })
 // { 

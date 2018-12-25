@@ -31,11 +31,13 @@ module.exports = (option = { interval: 1000 }) => {
   // Check if user is using MacOS
   if (process.platform === 'darwin') {
     return new Observable(observer => {
-      try {
-        observer.next(await battery())
-      } catch (error) {
-        observer.error(error)
-      }
+      (async () => {
+        try {
+          observer.next(await battery())
+        } catch (error) {
+          observer.error(error)
+        }
+      })()
       const timer = setInterval(async () => {
         try {
           observer.next(await battery())
