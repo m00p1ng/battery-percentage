@@ -1,6 +1,6 @@
 {
   "name": "macos-battery-level",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Get current MacOS battery level",
   "main": "index.js",
   "repository": {
