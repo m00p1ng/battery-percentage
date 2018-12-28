@@ -12,12 +12,25 @@ const getPercentage = (string) => {
   }
 }
 
+const getSource = (line) => {
+  if (line.includes('AC Power')) {
+    return 'Power Adapter'
+  } else if (line.includes('Battery')) {
+    return 'Battery'
+  } else {
+    return 'Unknown'
+  }
+}
+
 const battery = async () => {
-  let { stdout } = await execa.shell('pmset -g batt | egrep "([0-9]+%).*" -o')
+  let { stdout } = await execa.shell('pmset -g ps')
+  const lines = stdout.split('\n')
+  stdout = lines[1].split('\t')[1]
   stdout = stdout.substring(0, stdout.length - 14).split('; ')
 
   try {
     return {
+      source: getSource(lines[0]),
       percentage: getPercentage(stdout[0]),
       status: stdout[1],
       estimate: stdout[2],

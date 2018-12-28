@@ -22,6 +22,7 @@ BatteryLevel({ interval: 1000 }).subscribe(percentage => {
   console.log(percentage)
 })
 // { 
+//   source: 'Battery',
 //   percentage: '82',
 //   status: 'charging',
 //   estimate: '1:13 remaining' 
