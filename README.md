@@ -25,7 +25,7 @@ BatteryLevel({ interval: 1000 }).subscribe(percentage => {
 //   source: 'Battery',
 //   percentage: '82',
 //   status: 'charging',
-//   estimate: '1:13 remaining' 
+//   estimate: '1:13' 
 // }
 ```
 
