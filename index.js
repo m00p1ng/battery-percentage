@@ -48,7 +48,7 @@ const battery = async () => {
   }
 }
 
-module.exports = (option = { interval: 1000 }) => {
+exports = module.exports = (option = { interval: 1000 }) => {
   // Check if user is using MacOS
   if (process.platform === 'darwin') {
     return new Observable(observer => {
@@ -72,4 +72,12 @@ module.exports = (option = { interval: 1000 }) => {
   } else {
     return Observable.throw(new Error('Only MacOS systems are supported.'))
   }
+}
+
+exports.STATUS = {
+  CHARGED: 'charged',
+  AC_ATTACHED: 'AC attached',
+  FINISHING_CHARGE: 'finishing charge',
+  CHARGING: 'charging',
+  DISCHARGING: 'discharging',
 }
