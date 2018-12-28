@@ -22,6 +22,14 @@ const getSource = (line) => {
   }
 }
 
+const getRemaining = (estimate) => {
+  if (estimate.includes('no estimate') || estimate.includes('not charging')) {
+    return '-:--'
+  } else {
+    return estimate.split(' ')[0]
+  }
+}
+
 const battery = async () => {
   let { stdout } = await execa.shell('pmset -g ps')
   const lines = stdout.split('\n')
@@ -33,7 +41,7 @@ const battery = async () => {
       source: getSource(lines[0]),
       percentage: getPercentage(stdout[0]),
       status: stdout[1],
-      estimate: stdout[2],
+      estimate: getRemaining(stdout[2]),
     }
   } catch (error) {
     throw error
